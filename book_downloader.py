@@ -60,10 +60,8 @@ def new_download(url: str):
 def get_urls() -> []:
     r = requests.get(BOOKS_URL)
     soup = BeautifulSoup(r.text, 'html.parser')
-    urls = {}
     anchors = soup.find_all('a', {'target': '_blank'})
-    for a in anchors:
-        urls[a['href']] = ''
+    urls = {a['href']: '' for a in anchors}
     for index, url in enumerate(urls, 1):
         _url = BASE_URL + '/' + url
         r = requests.get(_url)
